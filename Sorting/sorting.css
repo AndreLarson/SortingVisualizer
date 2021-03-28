@@ -1,0 +1,19 @@
+canvas {
+  box-shadow: 5px 8px #000000;
+  background-color: #333c45;
+}
+
+html body {
+  margin-left: 100px;
+  background-color: #1F2933;
+  text-align: center;
+}
+
+.navbar-dark {
+  background-color: #333c45;
+  padding-bottom: 20px;
+}
+
+#reset {
+  display: none;
+}
