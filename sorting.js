@@ -18,7 +18,7 @@ function createArr() {
   draw();
   document.getElementById('reset').style.display="block";
   document.getElementById('dropdownGen').style.display="none";
-  document.getElementById('shuffle').style.display="none";
+  document.getElementById('shuffle').style.display="block";
 }
 
 function shuffle(i) {
@@ -41,7 +41,7 @@ function reverse() {
   draw();
   document.getElementById('reset').style.display="block";
   document.getElementById('dropdownGen').style.display="none";
-  document.getElementById('shuffle').style.display="none";
+  document.getElementById('shuffle').style.display="block";
 }
 
 function selectionSort(i) {
@@ -139,5 +139,5 @@ function reset() {
   c.clearRect(0, 0, canvas.width, canvas.height);
   document.getElementById('dropdownGen').style.display="block";
   document.getElementById('reset').style.display="none";
-  document.getElementById('shuffle').style.display="block";
+  document.getElementById('shuffle').style.display="none";
 }
