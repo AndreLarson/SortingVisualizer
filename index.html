@@ -31,20 +31,24 @@
             <a class="nav-link" id="shuffle" href="#" onclick="shuffle(0)">Randomize</a>
           </li>
 
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" id="algos">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Algorithms
             </a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
               <li><a class="dropdown-item" id="ss" href="#" onclick="selectionSort(0)">Selection Sort</a></li>
               <li><a class="dropdown-item" id="is" href="#" onclick="insertionSort(1)">Insertion Sort</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" id="bs" href="#" onclick="bubbleSortOuter(getSize() - 1)">Bubble Sort</a></li>
             </ul>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+  <div class="alert alert-dark" role="alert">
+    This project is a work in progress. More sorting algorithms will be added in the future.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <br>
   <canvas></canvas>
   <script type="text/javascript" src="sorting.js"></script>

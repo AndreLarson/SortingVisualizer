@@ -1,12 +1,15 @@
 const canvas = document.querySelector('canvas');
-const c = canvas.getContext('2d');
 canvas.width = window.innerWidth / 2;
 canvas.height = window.innerHeight / 2;
+const c = canvas.getContext('2d');
 const SIZE = 40;
 const GAP_SIZE = 5;
 const WIDTH = (canvas.width / SIZE) - GAP_SIZE;
+const DELAY = 1000;
+const INNER_DELAY = DELAY / SIZE;
 var recX = 0;
 var shapes = new Array(SIZE);
+var swapped = true;
 
 function createArr() {
   for (var i = 0; i < shapes.length; i++) {
@@ -19,6 +22,7 @@ function createArr() {
   document.getElementById('reset').style.display="block";
   document.getElementById('dropdownGen').style.display="none";
   document.getElementById('shuffle').style.display="block";
+  document.getElementById('algos').style.display="block";
 }
 
 function shuffle(i) {
@@ -42,6 +46,7 @@ function reverse() {
   document.getElementById('reset').style.display="block";
   document.getElementById('dropdownGen').style.display="none";
   document.getElementById('shuffle').style.display="block";
+  document.getElementById('algos').style.display="block";
 }
 
 function selectionSort(i) {
@@ -79,22 +84,31 @@ function insertionSort(i) {
   }, 100)
 }
 
-function bubbleSort(i) {
+function bubbleSortOuter(n) {
   setTimeout(function() {
-    var swap = true;
-    for (var j = 0; j < i; j++) {
-      if (shapes[j].myHeight > shapes[j + 1].myHeight) {
-        swap(j, j + 1);
-        swap = true;
-      }
-    }
-    setTimeout(draw, 700, i, min);
-    if (i > 0 && swap) {
-      selectionSort(++i);
+    swapped = false;
+    bubbleSortInner(0, n);
+    if (n > 0 && swapped) {
+      bubbleSortOuter(--n);
     } else {
 
     }
-  }, 100)
+  }, DELAY)
+}
+
+function bubbleSortInner(i, j) {
+  setTimeout(function() {
+    if (shapes[i].myHeight > shapes[i + 1].myHeight) {
+      setTimeout(draw, INNER_DELAY / 2, i, i + 1);
+      swap(i, i + 1);
+      setTimeout(draw, INNER_DELAY / 2, i, i + 1);
+      swapped = true;
+    }
+    if (i < j) {
+      bubbleSortInner(++i, j);
+    } else {
+    }
+  }, INNER_DELAY)
 }
 
 function swap(j, k) {
@@ -131,6 +145,10 @@ function drawRectangle(rectangle) {
   c.fillRect(rectangle.myX, rectangle.myY, rectangle.myWidth, rectangle.myHeight);
 }
 
+function getSize() {
+  return SIZE;
+}
+
 function reset() {
   for(var i = 0; i < shapes.length; i++) {
     shapes[i] = null;
@@ -140,4 +158,5 @@ function reset() {
   document.getElementById('dropdownGen').style.display="block";
   document.getElementById('reset').style.display="none";
   document.getElementById('shuffle').style.display="none";
+  document.getElementById('algos').style.display="none";
 }
