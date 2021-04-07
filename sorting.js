@@ -9,7 +9,6 @@ const DELAY = 1000;
 const INNER_DELAY = DELAY / SIZE;
 var recX = 0;
 var shapes = new Array(SIZE);
-var swapped = true;
 
 function createArr() {
   for (var i = 0; i < shapes.length; i++) {
@@ -86,9 +85,8 @@ function insertionSort(i) {
 
 function bubbleSortOuter(n) {
   setTimeout(function() {
-    swapped = false;
     bubbleSortInner(0, n);
-    if (n > 0 && swapped) {
+    if (n > 0) {
       bubbleSortOuter(--n);
     } else {
 
@@ -102,9 +100,8 @@ function bubbleSortInner(i, j) {
       setTimeout(draw, INNER_DELAY / 2, i, i + 1);
       swap(i, i + 1);
       setTimeout(draw, INNER_DELAY / 2, i, i + 1);
-      swapped = true;
     }
-    if (i < j) {
+    if (i + 1 < j) {
       bubbleSortInner(++i, j);
     } else {
     }
