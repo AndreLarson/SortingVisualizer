@@ -5,23 +5,21 @@ const c = canvas.getContext('2d');
 const SIZE = 40;
 const GAP_SIZE = 5;
 const WIDTH = (canvas.width / SIZE) - GAP_SIZE;
-const DELAY = 1000;
+const DELAY = 100;
 const INNER_DELAY = DELAY / SIZE;
 var recX = 0;
 var shapes = new Array(SIZE);
 
-function createArr() {
+function createArr(isReverse) {
   for (var i = 0; i < shapes.length; i++) {
-    const HEIGHT = 5 * (i + 2);
+    var temp = (isReverse ? 5 * ((shapes.length - i) + 2) : 5 * (i + 2));
+    const HEIGHT = temp;
     var rectangle = {myX : recX, myY : canvas.height - HEIGHT, myWidth : WIDTH, myHeight : HEIGHT};
     shapes[i] = rectangle;
     recX += WIDTH + 5;
   }
   draw();
-  document.getElementById('reset').style.display="block";
-  document.getElementById('dropdownGen').style.display="none";
-  document.getElementById('shuffle').style.display="block";
-  document.getElementById('algos').style.display="block";
+  buttonVisibility(1, 0, 0, 0);
 }
 
 function shuffle(i) {
@@ -34,20 +32,6 @@ function shuffle(i) {
   }, 10)
 }
 
-function reverse() {
-  for (var i = 0; i < shapes.length; i++) {
-    const HEIGHT = 5 * ((shapes.length - i) + 2);
-    var rectangle = {myX : recX, myY : canvas.height - HEIGHT, myWidth : WIDTH, myHeight : HEIGHT};
-    shapes[i] = rectangle;
-    recX += WIDTH + 5;
-  }
-  draw();
-  document.getElementById('reset').style.display="block";
-  document.getElementById('dropdownGen').style.display="none";
-  document.getElementById('shuffle').style.display="block";
-  document.getElementById('algos').style.display="block";
-}
-
 function selectionSort(i) {
   setTimeout(function() {
     var min = i;
@@ -58,13 +42,13 @@ function selectionSort(i) {
     }
     draw(i, min);
     swap(i, min);
-    setTimeout(draw, 700, i, min);
+    setTimeout(draw, INNER_DELAY, i, min);
     if (i < shapes.length - 1) {
       selectionSort(++i);
     } else {
 
     }
-  }, 100)
+  }, DELAY)
 }
 
 function insertionSort(i) {
@@ -74,13 +58,13 @@ function insertionSort(i) {
       draw(j, j + 1);
       swap(j, j + 1);
     }
-    setTimeout(draw, 700, j, j + 1);
+    setTimeout(draw, INNER_DELAY, j, j + 1);
     if (i < shapes.length - 1) {
       insertionSort(++i);
     } else {
 
     }
-  }, 100)
+  }, DELAY)
 }
 
 function bubbleSortOuter(n) {
@@ -152,8 +136,13 @@ function reset() {
   }
   recX = 0;
   c.clearRect(0, 0, canvas.width, canvas.height);
-  document.getElementById('dropdownGen').style.display="block";
-  document.getElementById('reset').style.display="none";
-  document.getElementById('shuffle').style.display="none";
-  document.getElementById('algos').style.display="none";
+  buttonVisibility(0, 1, 1, 1);
+}
+
+function buttonVisibility(a, b, c, d) {
+  var arr = ["block", "none"];
+  document.getElementById('dropdownGen').style.display=arr[a];
+  document.getElementById('reset').style.display=arr[b];
+  document.getElementById('shuffle').style.display=arr[c];
+  document.getElementById('algos').style.display=arr[d];
 }
